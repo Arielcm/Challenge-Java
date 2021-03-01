@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Estudiante</title>
+  <meta charset="utf-8">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+		th:href="@{/css/user-form.css}">
+  <link href="static/css/adminanduser.css" rel="stylesheet" type="text/css" th:href="@{/css/adminanduser.css}"/>
+  
+  	<script type="text/javascript">
+  	$(document).ready(function(){
+  	    // Requires jQuery
+
+  	$(document).on('click','.js-menu_toggle.closed',function(e){
+  		e.preventDefault(); $('.list_load, .list_item').stop();
+  		$(this).removeClass('closed').addClass('opened');
+
+  		$('.side_menu').css({ 'left':'0px' });
+
+  		var count = $('.list_item').length;
+  		$('.list_load').slideDown( (count*.6)*100 );
+  		$('.list_item').each(function(i){
+  			var thisLI = $(this);
+  			timeOut = 100*i;
+  			setTimeout(function(){
+  				thisLI.css({
+  					'opacity':'1',
+  					'margin-left':'0'
+  				});
+  			},100*i);
+  		});
+  	});
+
+  	$(document).on('click','.js-menu_toggle.opened',function(e){
+  		e.preventDefault(); $('.list_load, .list_item').stop();
+  		$(this).removeClass('opened').addClass('closed');
+
+  		$('.side_menu').css({ 'left':'-250px' });
+
+  		var count = $('.list_item').length;
+  		$('.list_item').css({
+  			'opacity':'0',
+  			'margin-left':'-20px'
+  		});
+  		$('.list_load').slideUp(300);
+  	});    
+  	});
+	</script>
+	
+</head>
+<body>
+
+<h1 class="page_title">Bienvenido Estudiante</h1>
+
+<div class="side_menu">
+	<div class="burger_box">
+		<div class="menu-icon-container">
+			<a href="#" class="menu-icon js-menu_toggle closed">
+				<span class="menu-icon_box">
+					<span class="menu-icon_line menu-icon_line--1"></span>
+					<span class="menu-icon_line menu-icon_line--2"></span>
+					<span class="menu-icon_line menu-icon_line--3"></span>
+				</span>
+			</a>
+		</div>
+	</div>
+	<div class="px-5">
+		<h2 class="menu_title" th:classappend="${studCon}">Menu </h2>
+		<ul class="list_load">
+			<li class="list_item"><a href="#" th:href="@{'/student/'+${studCon.id}}">Gestionar Cursos</a></li>
+			<li class="list_item"><a href="/logout">Salir</a></li>
+			<!-- 
+			<li class="list_item"><a href="#">List Item 05</a></li>
+			<li class="list_item"><a href="#">List Item 06</a></li>
+			<li class="list_item"><a href="#">List Item 07</a></li>
+			<li class="list_item"><a href="#">List Item 08</a></li>
+			 -->
+		</ul>
+		<div class="spacer_box"><p></p></div>
+	</div>
+</div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+</body>
+</html>
+
+

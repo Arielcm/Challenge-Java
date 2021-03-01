@@ -1,0 +1,56 @@
+<form id="userForm" th:object="${cpForm}" method="post" class="form" role="form" th:action="${editMode} ?@{/editcp} :@{/asignar}">
+	<input class="form-control" type="hidden" th:field="${cpForm.id}">
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Nombre Materia</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${cpForm.name}" required="" readonly="readonly">
+			<!-- <div class="alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div> -->
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Horario de Clase</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${cpForm.class_schedule}" required="" readonly="readonly">
+			<!--<div class="alert-danger" th:if="${#fields.hasErrors('class_schedule')}" th:errors="*{class_schedule}">Name Error</div>-->
+		</div>
+	</div>
+		<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Total de Estudiantes</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${cpForm.total_students}" required="" readonly="readonly">
+			<!--<div class="alert-danger" th:if="${#fields.hasErrors('class_schedule')}" th:errors="*{class_schedule}">Name Error</div>-->
+		</div>
+	</div>
+
+<!-- Listado de Profesores -->
+		<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Profesores</label>
+		<div class="col-lg-9">
+			<th:blok th:each="prof : ${profall}">
+				<div>
+					<input type="checkbox" th:field="*{professors}" th:text="'  '+${prof.last_name}+' '+ ${prof.name}" th:value="${prof.id}" />
+				</div>
+			</th:blok>
+		</div>
+	</div>
+<!-- Nuevo Listado Para Probar 
+
+		<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Profesores</label>
+		<div class="col-lg-9">
+			<select class="form-control" size="3" multiple="multiple">
+				<option th:each="prof : ${profall}" th:field="*{professors}" th:value="${prof.id}" th:text="${prof.last_name}+' '+ ${prof.name}">
+				</option>
+			</select>
+		</div>
+		</div>
+-->
+
+	
+	<div class="form-group row">
+		<div class="col-lg-12 text-center">
+			<a class="btn btn-secondary" th:href="@{'/cp/cancel'}">Cancelar</a>
+			<input type="submit" class="btn btn-primary" value="Save Changes" th:value="${editMode}?'Actualizar Curso':'Asignar Profesor'">
+		</div>
+	</div>
+</form>

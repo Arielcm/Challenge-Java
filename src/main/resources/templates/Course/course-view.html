@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Cursos</title>
+	
+	<!--JQUERY-->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script 
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	
+	<!-- Los iconos tipo Solid de Fontawesome-->
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/css/adminanduser.css"
+		th:href="@{/css/adminanduser.css}">
+	<!-- Nuestro css-->
+	<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
+		th:href="@{/css/user-form.css}">
+		<!-- CSS Menu -->
+		
+
+	<!-- DATA TABLE -->
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
+	        $('#courseList').DataTable();
+	    } );
+	</script>
+	
+	<!-- Agregado Para el Menu -->
+	<script type="text/javascript">
+  	$(document).ready(function(){
+  	    // Requires jQuery
+
+  	$(document).on('click','.js-menu_toggle.closed',function(e){
+  		e.preventDefault(); $('.list_load, .list_item').stop();
+  		$(this).removeClass('closed').addClass('opened');
+
+  		$('.side_menu').css({ 'left':'0px' });
+
+  		var count = $('.list_item').length;
+  		$('.list_load').slideDown( (count*.6)*100 );
+  		$('.list_item').each(function(i){
+  			var thisLI = $(this);
+  			timeOut = 100*i;
+  			setTimeout(function(){
+  				thisLI.css({
+  					'opacity':'1',
+  					'margin-left':'0'
+  				});
+  			},100*i);
+  		});
+  	});
+
+  	$(document).on('click','.js-menu_toggle.opened',function(e){
+  		e.preventDefault(); $('.list_load, .list_item').stop();
+  		$(this).removeClass('opened').addClass('closed');
+
+  		$('.side_menu').css({ 'left':'-250px' });
+
+  		var count = $('.list_item').length;
+  		$('.list_item').css({
+  			'opacity':'0',
+  			'margin-left':'-20px'
+  		});
+  		$('.list_load').slideUp(300);
+  	});    
+  	});
+	</script>
+	
+	<!-- Fin de lo agregado -->
+</head>
+<body>
+<h1 class="page_title">Administracion de Cursos/Materias</h1>
+<div class="side_menu">
+	<div class="burger_box">
+		<div class="menu-icon-container">
+			<a href="#" class="menu-icon js-menu_toggle closed">
+				<span class="menu-icon_box">
+					<span class="menu-icon_line menu-icon_line--1"></span>
+					<span class="menu-icon_line menu-icon_line--2"></span>
+					<span class="menu-icon_line menu-icon_line--3"></span>
+				</span>
+			</a>
+		</div>
+	</div>
+	<div class="px-5">
+		<h2 class="menu_title">Menu </h2>
+		<ul class="list_load">
+			<li class="list_item"><a href="/Profesores" >Gestionar Profesores</a></li>
+			<li class="list_item"><a href="/Cursos">Gestionar Cursos</a></li>
+			<li class="list_item"><a href="/asignar">Asignar Profesores a Cursos</a></li>
+			<li class="list_item"><a href="/logout">Salir</a></li>
+			<!-- 
+			<li class="list_item"><a href="#">List Item 05</a></li>
+			<li class="list_item"><a href="#">List Item 06</a></li>
+			<li class="list_item"><a href="#">List Item 07</a></li>
+			<li class="list_item"><a href="#">List Item 08</a></li>
+			 -->
+		</ul>
+		<div class="spacer_box"><p></p></div>
+	</div>
+</div>
+    
+	<div class="container">
+	<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
+		<ul class="nav nav-tabs justify-content-end">
+			<li class="nav-item">
+			<a class="nav-link active" th:classappend="${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Listado de Cursos/Materias</a>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" th:classappend="${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Agregar Curso/Materia</a>				   	
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show" th:classappend="${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Listado</h4>
+					</div>
+					<div class="card-body" style=width:940px>
+						<div th:include="Course/course-list.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade show" th:classappend="${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Datos del Curso</h4>
+					</div>
+					<div class="card-body">
+						<div th:include="Course/course-form.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:include="Course/confirm-delete-dialog.html" th:remove="tag"></div>
+
+</body>
+</html>

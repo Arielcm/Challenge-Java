@@ -1,0 +1,39 @@
+<form id="userForm" th:object="${profForm}" method="post" class="form" role="form" th:action="${editMode} ?@{/editProf} :@{/Profesores}">
+	<input class="form-control" type="hidden" th:field="${profForm.id}">
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Nombre </label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${profForm.name}" required="">
+			<!-- <div class="alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div> -->
+		</div>
+	</div>
+		<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Apellido </label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${profForm.last_name}" required="">
+			<!-- <div class="alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div> -->
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">DNI</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="number" th:field="${profForm.dni}" required="">
+			<!--<div class="alert-danger" th:if="${#fields.hasErrors('class_schedule')}" th:errors="*{class_schedule}">Name Error</div>-->
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Activo?</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="checkbox" th:field="${profForm.active}">
+		<!--	<div class="alert-danger" th:if="${#fields.hasErrors('total_students')}" th:errors="*{total_students}">Name Error</div>-->
+		</div>
+	</div>
+	
+	
+	<div class="form-group row">
+		<div class="col-lg-12 text-center">
+			<a class="btn btn-secondary" th:href="@{'/prof/cancel'}">Cancelar</a>
+			<input type="submit" class="btn btn-primary" value="Save Changes" th:value="${editMode}?'Guardar Profesor':'Crear Profesor'">
+		</div>
+	</div>
+</form>
